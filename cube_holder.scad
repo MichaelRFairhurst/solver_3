@@ -4,6 +4,7 @@
 include <constants.scad>;
 use <util.scad>;
 use <frame.scad>;
+use <gear.scad>;
 
 // Begin config specific to this piece.
 thickness = 2;
@@ -14,13 +15,14 @@ holder();
 // Begin modules that can be used to assemble this piece in solver_3.scad
 
 module above_cube_holder() {
-  up(thickness) above_frame() children();
+  up(thickness/2 + servo_gear_thickness) above_frame() children();
 }
 
 module cube_holder(cube_size=cube_size) {
   holder_size = cube_size / 3;
-  difference() {
+  up(servo_gear_thickness - thickness/2) difference() {
     cube_on_point(holder_size) cube(holder_size, center=true);
     up(thickness) cube_on_point(holder_size) cube(holder_size, center=true);
   }
+  gear(servo_gear_teeth_size, servo_gear_num_teeth*2, servo_gear_thickness);
 }

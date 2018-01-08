@@ -7,6 +7,8 @@ use <rubiks_cube.scad>;
 use <cube_holder.scad>;
 use <frame.scad>;
 use <arm.scad>;
+use <servo.scad>;
+use <gear.scad>;
 
 // This file is for previewing everything at once. All logic related
 // to piece placement & arrangement belongs here; however, any logic
@@ -14,10 +16,15 @@ use <arm.scad>;
 // per printable piece in most cases.
 
 above_cube_holder() {
-  rubiks_cube_on_point();
-  onto_point(cube_size) arm();
+  color("red", 0.8) rubiks_cube_on_point();
+  color("green", 0.8) onto_point(cube_size) arm();
 }
 
-above_frame() cube_holder();
+above_frame() {
+  color("white", 0.8) cube_holder();
 
-frame();
+  color("grey", 0.8) servo_placement()
+    servo();
+}
+
+color("yellow", 0.8) frame();

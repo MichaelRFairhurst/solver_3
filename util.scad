@@ -53,14 +53,37 @@ module down(z) {
 // constants [x], [y], and [z], from constants.scad. Note you
 // can add & subtract these values for a clean API.
 //
+// Based on [to_center], so if you don't want a cube, or want
+// to recreate the transformation of a different [ccube], you
+// can use that.
+//
 // Example: a cube of width 10, centered on x & y
 //   ccube(10, x + y)
-//
 module ccube(dims, axes) {
+  to_center(dims, axes) cube(dims);
+}
+
+// The transformation of [ccube], abstracted so that it can be
+// used for shapes other than a regular cube.
+module to_center(dims, axes) {
   realdims = is_number(dims) ? [dims, dims, dims] : dims;
   translate([
     -realdims[0]/2 * axes[0], 
     -realdims[1]/2 * axes[1], 
     -realdims[2]/2 * axes[2]
-  ]) cube(dims);
+  ]) children();
+}
+
+// Take a child, and mirror it along the sets of vectors provided. The
+// vectors can be the constants [x], [y], and [z] from constants.scad.
+//
+// Example: Four cubes, evenly mirrored around x and y
+//   mirrored([x, y]) translate([10, 10, 0]) cube(1);
+module mirrored(vector_set, index = 0) {
+  if (index != len(vector_set)) {
+    mirror(vector_set[index]) mirrored(vector_set, index + 1) children();
+    mirrored(vector_set, index + 1) children();
+  } else {
+    children();
+  }
 }
