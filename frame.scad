@@ -57,7 +57,7 @@ module front_servo_support() {
   }
 }
 
-module servo_placement() {
+module front_servo_placement() {
   translate([cube_size*1.5, width/2 + servo_block_size[1]/2, 0])
     rotate([0, 180, 0])
     children();

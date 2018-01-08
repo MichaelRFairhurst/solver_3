@@ -24,5 +24,9 @@ module cube_holder(cube_size=cube_size) {
     cube_on_point(holder_size) cube(holder_size, center=true);
     up(thickness) cube_on_point(holder_size) cube(holder_size, center=true);
   }
+  holder_gear();
+}
+
+module holder_gear() {
   gear(servo_gear_teeth_size, servo_gear_num_teeth*2, servo_gear_thickness);
 }

@@ -9,6 +9,7 @@ use <frame.scad>;
 use <arm.scad>;
 use <servo.scad>;
 use <gear.scad>;
+use <belt.scad>;
 
 // This file is for previewing everything at once. All logic related
 // to piece placement & arrangement belongs here; however, any logic
@@ -23,8 +24,11 @@ above_cube_holder() {
 above_frame() {
   color("white", 0.8) cube_holder();
 
-  color("grey", 0.8) servo_placement()
-    servo();
+  color("grey", 0.8) front_servo_placement() servo();
+  color("black", 0.8) belt() {
+    front_servo_placement() servo_gear();
+    holder_gear();
+  }
 }
 
 color("yellow", 0.8) frame();

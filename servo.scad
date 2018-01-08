@@ -24,7 +24,6 @@ module servo(
     gear_thickness=servo_gear_thickness
 ) {
   down(gear_thickness) {
-    gear(gear_teeth_size, gear_num_teeth, gear_thickness);
     servo_block(block_size);
     servo_flange(
         block_size,
@@ -33,6 +32,17 @@ module servo(
         flange_offset,
         screw_offsets,
         screw_size);
+  }
+  servo_gear(gear_teeth_size, gear_num_teeth, gear_thickness);
+}
+
+module servo_gear(
+    gear_teeth_size=servo_gear_teeth_size,
+    gear_num_teeth=servo_gear_num_teeth,
+    gear_thickness=servo_gear_thickness
+) {
+  down(gear_thickness) {
+    gear(gear_teeth_size, gear_num_teeth, gear_thickness);
   }
 }
 
