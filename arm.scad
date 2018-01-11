@@ -5,7 +5,7 @@ include <constants.scad>;
 use <util.scad>;
 
 // Begin config specific to this piece.
-arm_length = 70;
+arm_length = 100;
 width = 4;
 grip_width = 2;
 

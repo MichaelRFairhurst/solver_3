@@ -3,7 +3,8 @@
  */
 
 // Constants to be used by all models
-cube_size = 30;
+cube_size = 55;
+cube_rounding = 1;
 servo_block_size=[26.5,15,30];
 servo_flange_length=13;
 servo_flange_thickness=1.5;

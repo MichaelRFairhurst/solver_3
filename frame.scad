@@ -8,10 +8,10 @@ use <arm.scad>;
 
 thickness = 4;
 width = 20;
-height_at_front = 70;
-height_at_back = 90;
-cube_to_arm_gap = 40;
-cube_to_arm_len = 60;
+height_at_front = 120;
+height_at_back = 140;
+cube_to_arm_gap = 60;
+cube_to_arm_len = 80;
 front_servo_support_offset = cube_to_arm_len
                            - servo_block_size[0]
                            - servo_flange_length
@@ -58,7 +58,7 @@ module front_servo_support() {
 }
 
 module front_servo_placement() {
-  translate([cube_size*1.5, width/2 + servo_block_size[1]/2, 0])
+  translate([front_servo_support_offset+servo_block_size[0]/2+servo_flange_length/2, width/2 + servo_block_size[1]/2, 0])
     rotate([0, 180, 0])
     children();
 }

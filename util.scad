@@ -27,9 +27,10 @@ module onto_point(cube_size) {
 // A cube with rounded corners, with centering available as
 // well, via [ccube].
 module rounded_cube(size, rounding, center) {
+  //realdims = is_number(dims) ? [dims, dims, dims] : dims;
   minkowski() {
     ccube(size - rounding*2, center);
-    sphere(rounding, center=true, $fn=10);
+    sphere(r=rounding, center=true, $fn=10);
   }
 }
 
