@@ -24,9 +24,9 @@ above_cube_holder() {
 above_frame() {
   color("white", 0.8) cube_holder();
 
-  color("grey", 0.8) front_servo_placement() servo();
+  color("grey", 0.8) cube_spinner_servo_placement() servo();
   color("black", 0.8) belt() {
-    front_servo_placement() servo_gear();
+    cube_spinner_servo_placement() servo_gear();
     holder_gear();
   }
 }

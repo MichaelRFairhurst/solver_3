@@ -27,3 +27,6 @@ module belt(size=2) {
     down(0.1) scale([1,1,2]) hull() children();
   }
 }
+
+// TODO actually calculate this
+function belt_distance(belt_length, gear_size1, gear_size2) = belt_length/2;

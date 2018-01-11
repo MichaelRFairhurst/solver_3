@@ -5,6 +5,7 @@ include <constants.scad>;
 use <util.scad>;
 use <cube_holder.scad>;
 use <arm.scad>;
+use <belt.scad>;
 
 thickness = 4;
 width = 20;
@@ -12,12 +13,18 @@ height_at_front = 120;
 height_at_back = 140;
 cube_to_arm_gap = 60;
 cube_to_arm_len = 80;
-front_servo_support_offset = cube_to_arm_len
-                           - servo_block_size[0]
-                           - servo_flange_length
-                           + servo_screw_offsets[1]
-                           + servo_screw_size/2;
-front_servo_support_height = servo_gear_thickness
+
+cube_spinner_belt_size = 120;
+
+cube_spinner_servo_belt_distance = belt_distance(
+                                cube_spinner_belt_size,
+                                servo_gear_thickness,
+                                servo_gear_thickness * 2);
+
+cube_spinner_servo_offset = sqrt(sqr(cube_spinner_servo_belt_distance), sqr(width + servo_block_size[1]/2));
+
+cube_spinner_servo_support_offset = servo_block_size[0]/2 + servo_screw_offsets[1]/2;
+cube_spinner_servo_support_height = servo_gear_thickness
                            + servo_flange_offset
                            + thickness
                            - servo_flange_thickness;
@@ -34,7 +41,10 @@ module above_frame() {
 module frame() {
   translate([-width/2, 0, 0])
     ccube([cube_to_arm_len + width/2, width, thickness], y);
-  front_servo_support();
+  translate([cube_spinner_servo_offset - cube_spinner_servo_support_offset, 0, 0])
+    cube_spinner_servo_support();
+  translate([cube_spinner_servo_offset + cube_spinner_servo_support_offset, 0, 0])
+    cube_spinner_servo_support();
   difference() {
     union() {
       translate([cube_to_arm_gap, 0, 0])
@@ -46,19 +56,16 @@ module frame() {
   }
 }
 
-module front_servo_support() {
+module cube_spinner_servo_support() {
   to_center([0, width, 0], y) {
-    translate([front_servo_support_offset, 0, 0])
-      cube([thickness, width / 2, front_servo_support_height]);
-    translate([front_servo_support_offset, 0, front_servo_support_height - thickness])
-      cube([thickness, width + servo_block_size[1], thickness]);
-    translate([cube_to_arm_len, 0, front_servo_support_height - thickness])
-      cube([thickness, width + servo_block_size[1], thickness]);
+      ccube([thickness, width / 2, cube_spinner_servo_support_height], x);
+    translate([0, 0, cube_spinner_servo_support_height - thickness])
+      ccube([thickness, width + servo_block_size[1], thickness], x);
   }
 }
 
-module front_servo_placement() {
-  translate([front_servo_support_offset+servo_block_size[0]/2+servo_flange_length/2, width/2 + servo_block_size[1]/2, 0])
+module cube_spinner_servo_placement() {
+  translate([cube_spinner_servo_offset, width/2 + servo_block_size[1]/2, 0])
     rotate([0, 180, 0])
     children();
 }

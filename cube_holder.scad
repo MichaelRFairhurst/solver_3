@@ -7,6 +7,7 @@ use <frame.scad>;
 use <gear.scad>;
 
 // Begin config specific to this piece.
+margin = 0.5;
 thickness = 2.5;
 embedded_thickness = 1;
 
@@ -20,7 +21,7 @@ module above_cube_holder() {
 }
 
 module cube_holder() {
-  piece_size = cube_size / 3;
+  piece_size = cube_size / 3 + margin;
   holder_open_size = piece_size + thickness;
   holder_closed_size = piece_size + thickness + embedded_thickness;
   difference() {

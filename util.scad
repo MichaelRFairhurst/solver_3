@@ -3,6 +3,8 @@
  */
 
 function is_number(x) = abs(x)!=undef;
+function sqr(x) = x*x;
+function sqrt(x) = pow(x, 0.5);
 
 // Constants specific to this file
 cube_point_rotation = [45, 35.264, 180];
