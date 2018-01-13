@@ -28,5 +28,10 @@ module belt(size=2) {
   }
 }
 
-// TODO actually calculate this
-function belt_distance(belt_length, gear_size1, gear_size2) = belt_length/2;
+// This an approximation for a transcendental equation, but seems to work well
+// see this post: https://math.stackexchange.com/questions/123361
+function gear_center_distance(belt_length, gear_size1, gear_size2) =
+  let(diff=abs(gear_size1 - gear_size2))
+  let(tangent_length=
+    (belt_length - PI*diff + sqrt(sqr(PI*diff - belt_length) - 16*sqr(diff))) / 4)
+  sqrt(sqr(diff) + sqr(tangent_length));
