@@ -15,11 +15,12 @@ extend_retract_gear_size = 1;
 rotate([0, 90, 0]) arm();
 
 // Begin modules that can be used to assemble this piece in solver_3.scad
-module arm() {
+module arm(include_gears=true) {
   rotate([0, 270, 0]) {
     translate([0, 0, cube_size/2])
-      opposing_gears(arm_length, width, extend_retract_gear_size);
-      //cylinder(d=width, arm_length);
+      if (include_gears)
+        opposing_gears(arm_length, width, extend_retract_gear_size);
+      else cylinder(d=width, arm_length);
     difference() {
       translate([0, 0, cube_size/3/2 + grip_width / 2])
         ccube([

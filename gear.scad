@@ -27,14 +27,8 @@ function gear_outer_radius(teeth_size, num_teeth)
 // Get the size of a gear tooth such that it is on a gear with num_teeth
 // and fits inside (teeth included) outer_radius.
 function gear_size_for_outer_radius_and_teeth_count(outer_radius, num_teeth)
-  = _gear_size_for_outer_radius_and_teeth_count(
-      outer_radius,
-      num_teeth,
-      outer_radius*2 / num_teeth);
-
-// internal function helper for [gear_size_for_outer_radius_and_teeth_count]
-function _gear_size_for_outer_radius_and_teeth_count(outer_radius, num_teeth, basic_teeth_size)
-  = basic_teeth_size
+  = let(basic_teeth_size = other_radius*2 / num_teeth)
+    basic_teeth_size
     * ((outer_radius - gear_tooth_additional_radius(basic_teeth_size))
        / outer_radius);
 

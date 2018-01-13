@@ -18,7 +18,7 @@ use <belt.scad>;
 
 above_cube_holder() {
   color("red", 0.8) rubiks_cube_on_point();
-  color("green", 0.8) onto_point(cube_size) arm();
+  color("green", 0.8) onto_point(cube_size) arm(include_gears=false);
 }
 
 above_frame() {
