@@ -8,7 +8,7 @@ use <arm.scad>;
 use <belt.scad>;
 
 thickness = 4;
-width = 20;
+width = 30;
 height_at_front = 120;
 height_at_back = 140;
 cube_to_arm_gap = 60;
