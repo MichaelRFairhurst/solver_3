@@ -52,7 +52,7 @@ module frame() {
       translate([cube_to_arm_len, 0, 0])
         ccube([thickness, width, height_at_back], y);
     }
-    above_cube_holder() onto_point(cube_size) arm($fn=100);
+    above_cube_holder() onto_point(cube_size) arm(include_gears=false, $fn=100);
   }
 }
 
