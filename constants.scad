@@ -13,7 +13,7 @@ servo_screw_offsets=[3, 5];
 servo_screw_size = 4;
 servo_gear_teeth_size = 1;
 servo_gear_num_teeth = 12;
-servo_gear_thickness = 5;
+servo_gear_thickness = 6;
 
 // Dimensional values for use with [ccube], etc.
 x = [1, 0, 0];
