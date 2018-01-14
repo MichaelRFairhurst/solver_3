@@ -10,6 +10,8 @@ use <gear.scad>;
 margin = 0.5;
 thickness = 2.5;
 embedded_thickness = 1;
+//TODO:
+up_const = 23.5;
 
 // Begin how to print this piece (orientation, etc)
 cube_holder();
@@ -21,11 +23,17 @@ module above_cube_holder() {
 }
 
 module cube_holder() {
+  up(up_const) onto_point()
+    piece_sleeve();
+  holder_gear();
+}
+
+module piece_sleeve() {
   piece_size = cube_size / 3 + margin;
   holder_open_size = piece_size + thickness;
   holder_closed_size = piece_size + thickness + embedded_thickness;
   difference() {
-    translate([embedded_thickness + margin, embedded_thickness - thickness,  embedded_thickness - thickness])
+    translate([thickness/2, (embedded_thickness-thickness)/2, (embedded_thickness-thickness)/2])
       ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
     rounded_cube(piece_size, cube_rounding, x+y+z);
     translate([-thickness, 0, 0]) rounded_cube(piece_size, cube_rounding, x+y+z);
@@ -33,13 +41,15 @@ module cube_holder() {
       translate([0,holder_open_size,0])
       ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
   }
-  translate([piece_size/2 + .9,-15,-piece_size/2 - 1.40])
+  translate([(piece_size + thickness)/2,-(piece_size/2 + thickness),(piece_size + thickness)/-2])
     rotate(90,[1,0,0])
     rotate(22.5,[0,0,1])
-    pin(10,2);
-  holder_gear();
+    pin(thickness*2.5,thickness/2);
 }
 
 module holder_gear() {
-  gear(servo_gear_teeth_size, servo_gear_num_teeth*2, servo_gear_thickness);
+  difference() {
+    gear(servo_gear_teeth_size, servo_gear_num_teeth*2, servo_gear_thickness);
+    up(up_const) onto_point() piece_sleeve();
+  }
 }
