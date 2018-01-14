@@ -22,7 +22,7 @@ module torque_tester(cube_size, wall_thickness, layer_count, lever_length) {
     for (i=[0:3])
     rotate(i*90,[0,1,0])
     translate([cube_size/2 + wall_thickness,0,-wall_thickness/2])
-      wing(cube_size/(layer_count*1.33), lever_length - cube_size/2 - wall_thickness, wall_thickness);
+      wing(cube_size/(layer_count*1.33), lever_length - cube_size/2 - wall_thickness, wall_thickness * 1.25);
   }
 }
 
@@ -31,12 +31,17 @@ module wing(width, depth, wall_thickness) {
     difference() {
       cube([depth+wall_thickness/2,width,wall_thickness]);
       translate([depth, width/2, -wall_thickness])
-        cylinder(wall_thickness*3, wall_thickness, wall_thickness, $fn=30);
+        cylinder(wall_thickness*3, wall_thickness*2, wall_thickness*2, $fn=30);
     };
-    translate([depth, width/2, wall_thickness/2])
-    rotate([90, 0, 0])
-    translate([0, 0, -wall_thickness])
-      cylinder(wall_thickness*2, wall_thickness/2, wall_thickness/2, $fn=30);
+
+    for (i=[0:3])
+      translate([depth, width/2, wall_thickness/2])
+      rotate([90, 0, 0])
+      translate([0, 0, (1-i)*wall_thickness])
+      cylinder(
+        wall_thickness,
+        wall_thickness/(i % 2 + 1),
+        wall_thickness/((i + 1) % 2 + 1), $fn=30);
   }
 }
 
