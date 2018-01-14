@@ -13,23 +13,26 @@
 // that is perpendicular to the floor.  If the cube rotates, it must take less than
 // weight/lever_length to move the cube.
 module torque_tester(cube_size, wall_thickness, layer_count, lever_length) {
+  depth = cube_size / (layer_count * 1.33);
+  width = cube_size + wall_thickness * 2;
   difference() {
-    cube([cube_size + wall_thickness * 2, cube_size / (layer_count * 1.33), cube_size + wall_thickness * 2]);
-    translate([wall_thickness,-cube_size/(layer_count*1.33),wall_thickness]) cube([cube_size, cube_size*3/(layer_count*1.33), cube_size]);
+    cube([width, depth, width]);
+    translate([wall_thickness, -depth, wall_thickness])
+      cube([cube_size, 3*depth, cube_size]);
   }
-  translate([cube_size/2 + wall_thickness,0,cube_size/2 + wall_thickness])
+  translate([width/2, 0, width/2])
   union() {
     for (i=[0:3])
     rotate(i*90,[0,1,0])
-    translate([cube_size/2 + wall_thickness,0,-wall_thickness/2])
-      wing(cube_size/(layer_count*1.33), lever_length - cube_size/2 - wall_thickness, wall_thickness * 1.25);
+    translate([width/2, 0, -wall_thickness/2])
+      wing(depth, lever_length - width/2, wall_thickness * 1.25);
   }
 }
 
 module wing(width, depth, wall_thickness) {
   union() {
     difference() {
-      cube([depth+wall_thickness/2,width,wall_thickness]);
+      cube([depth + wall_thickness/2, width, wall_thickness]);
       translate([depth, width/2, -wall_thickness])
         cylinder(wall_thickness*3, wall_thickness*2, wall_thickness*2, $fn=30);
     };
