@@ -16,12 +16,12 @@ cube_to_arm_len = 80;
 
 cube_spinner_belt_size = 120;
 
-cube_spinner_servo_belt_distance = belt_distance(
+cube_spinner_servo_gear_center_distance = gear_center_distance(
                                 cube_spinner_belt_size,
                                 servo_gear_thickness,
                                 servo_gear_thickness * 2);
 
-cube_spinner_servo_offset = sqrt(sqr(cube_spinner_servo_belt_distance), sqr(width + servo_block_size[1]/2));
+cube_spinner_servo_offset = sqrt(sqr(cube_spinner_servo_gear_center_distance), sqr(width + servo_block_size[1]/2));
 
 cube_spinner_servo_support_offset = servo_block_size[0]/2 + servo_screw_offsets[1]/2;
 cube_spinner_servo_support_height = servo_gear_thickness
