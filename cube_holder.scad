@@ -25,18 +25,18 @@ module cube_holder() {
   holder_open_size = piece_size + thickness;
   holder_closed_size = piece_size + thickness + embedded_thickness;
   difference() {
-    up(servo_gear_thickness - thickness/2)
-      onto_point(holder_closed_size)
-      difference() {
-        ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
-        translate([-thickness/2, thickness/2, thickness/2]) {
-          rounded_cube(piece_size, cube_rounding, x+y+z);
-          translate([-thickness, 0, 0]) rounded_cube(piece_size, cube_rounding, x+y+z);
-          //translate([-cube_rounding, cube_rounding, cube_rounding]) ccube(piece_size, x+y+z);
-        }
-    }
-    up(piece_size * 2) ccube(piece_size * 3, x + y);
+    translate([embedded_thickness + margin, embedded_thickness - thickness,  embedded_thickness - thickness])
+      ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
+    rounded_cube(piece_size, cube_rounding, x+y+z);
+    translate([-thickness, 0, 0]) rounded_cube(piece_size, cube_rounding, x+y+z);
+    rotate(45,[1,0,1])
+      translate([0,holder_open_size,0])
+      ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
   }
+  translate([piece_size/2 + .9,-15,-piece_size/2 - 1.40])
+    rotate(90,[1,0,0])
+    rotate(22.5,[0,0,1])
+    pin(10,2);
   holder_gear();
 }
 
