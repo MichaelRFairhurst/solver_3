@@ -18,7 +18,11 @@ use <belt.scad>;
 
 above_cube_holder() {
   color("red", 0.8) rubiks_cube_on_point();
-  color("green", 0.8) onto_point(cube_size) arm(include_gears=false);
+  color("green", 0.8) onto_point(cube_size) rotate(180, y) {
+    translate([cube_size/2+2/*TODO: this 2 represents arm.grip_width*/, 0, 0])
+      arm(include_gears=false);
+    claw(include_gears=false);
+  }
 }
 
 above_frame() {
