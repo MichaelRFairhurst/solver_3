@@ -1,3 +1,5 @@
+use <util.scad>
+
 module cantilever(width, thickness, snap_length, overhang) {
   inner_length = snap_length - overhang;
   linear_extrude(width) {
@@ -28,6 +30,7 @@ module cantilever(width, thickness, snap_length, overhang) {
 
 module cantilever_negative(width, thickness, snap_length, overhang, tolerance) {
   inner_length = snap_length - overhang;
+  flex_space = sqrt(sqr(overhang+thickness)+sqr(overhang));
   linear_extrude(width) {
     polygon([
       [0,-tolerance],
@@ -35,8 +38,8 @@ module cantilever_negative(width, thickness, snap_length, overhang, tolerance) {
       [inner_length-tolerance,-overhang-tolerance],
       [inner_length+tolerance*sqrt(2)/2,-overhang-tolerance],
       [snap_length+tolerance, -tolerance*sqrt(2)/2],
-      [snap_length+tolerance, thickness+overhang],
-      [-tolerance, thickness+overhang],
+      [snap_length+tolerance, flex_space + tolerance],
+      [-tolerance, flex_space + tolerance],
       [-tolerance, -(thickness+tolerance)/2],
       [0, -(thickness+tolerance)/2],
     ]);
