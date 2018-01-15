@@ -47,7 +47,6 @@ module cantilever_negative(length, width, thickness, overhang, tolerance) {
   }
 }
 
-/*
 _width = 4;
 _thickness = 2;
 _length = 12;
@@ -57,4 +56,3 @@ _tolerance = 0.32;
 cantilever(_length, _width, _thickness, _overhang);
 color("blue", 0.8)
   cantilever_negative(_length, _width / 2, _thickness, _overhang, _tolerance);
-*/
