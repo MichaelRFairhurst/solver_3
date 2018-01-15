@@ -1,14 +1,14 @@
 use <util.scad>
 
-module cantilever(width, thickness, snap_length, overhang) {
-  inner_length = snap_length - overhang;
+module cantilever(length, width, thickness, overhang) {
+  inner_length = length - overhang;
   linear_extrude(width) {
     polygon([
       [0,0],
       [inner_length,0],
       [inner_length,-overhang],
-      [snap_length, 0],
-      [snap_length, thickness],
+      [length, 0],
+      [length, thickness],
       [0, thickness],
     ]);
     translate([0,-thickness/2,0])
@@ -28,8 +28,8 @@ module cantilever(width, thickness, snap_length, overhang) {
   }
 }
 
-module cantilever_negative(width, thickness, snap_length, overhang, tolerance) {
-  inner_length = snap_length - overhang;
+module cantilever_negative(length, width, thickness, overhang, tolerance) {
+  inner_length = length - overhang;
   flex_space = sqrt(sqr(overhang+thickness)+sqr(overhang));
   linear_extrude(width) {
     polygon([
@@ -37,8 +37,8 @@ module cantilever_negative(width, thickness, snap_length, overhang, tolerance) {
       [inner_length-tolerance,-tolerance],
       [inner_length-tolerance,-overhang-tolerance],
       [inner_length+tolerance*sqrt(2)/2,-overhang-tolerance],
-      [snap_length+tolerance, -tolerance*sqrt(2)/2],
-      [snap_length+tolerance, flex_space + tolerance],
+      [length+tolerance, -tolerance*sqrt(2)/2],
+      [length+tolerance, flex_space + tolerance],
       [-tolerance, flex_space + tolerance],
       [-tolerance, -(thickness+tolerance)/2],
       [0, -(thickness+tolerance)/2],
@@ -56,11 +56,11 @@ module cantilever_negative(width, thickness, snap_length, overhang, tolerance) {
 /*
 _width = 4;
 _thickness = 2;
-_snap_length = 12;
+_length = 12;
 _overhang = 2;
 _tolerance = 0.32;
 
-cantilever(_width, _thickness, _snap_length, _overhang);
+cantilever(_length, _width, _thickness, _overhang);
 color("blue", 0.8)
-  cantilever_negative(_width / 2, _thickness, _snap_length, _overhang, _tolerance);
+  cantilever_negative(_length, _width / 2, _thickness, _overhang, _tolerance);
 */
