@@ -4,25 +4,19 @@ module cantilever(length, width, thickness, overhang) {
   inner_length = length - overhang;
   linear_extrude(width) {
     polygon([
-      [0,0],
-      [inner_length,0],
-      [inner_length,-overhang],
+      [0, 0],
+      [inner_length, 0],
+      [inner_length, -overhang],
       [length, 0],
       [length, thickness],
       [0, thickness],
     ]);
-    translate([0,-thickness/2,0])
+    for (i=[0:1])
+      translate([0, (i*2 - 0.5)*thickness, 0])
       difference() {
-        translate([0,0,0])
+        translate([0, -i*thickness/2, 0])
           square(thickness/2);
-        translate([thickness/2,0,0])
-          circle(thickness/2, $fn=30);
-      }
-    translate([0,thickness*1.5,0])
-      difference() {
-        translate([0,-thickness/2,0])
-          square(thickness/2);
-        translate([thickness/2,0,0])
+        translate([thickness/2, 0, 0])
           circle(thickness/2, $fn=30);
       }
   }
@@ -30,24 +24,24 @@ module cantilever(length, width, thickness, overhang) {
 
 module cantilever_negative(length, width, thickness, overhang, tolerance) {
   inner_length = length - overhang;
-  flex_space = sqrt(sqr(overhang+thickness)+sqr(overhang));
+  clearance = sqrt(sqr(overhang + thickness) + sqr(overhang));
   linear_extrude(width) {
     polygon([
-      [0,-tolerance],
-      [inner_length-tolerance,-tolerance],
-      [inner_length-tolerance,-overhang-tolerance],
-      [inner_length+tolerance*sqrt(2)/2,-overhang-tolerance],
-      [length+tolerance, -tolerance*sqrt(2)/2],
-      [length+tolerance, flex_space + tolerance],
-      [-tolerance, flex_space + tolerance],
-      [-tolerance, -(thickness+tolerance)/2],
-      [0, -(thickness+tolerance)/2],
+      [0, -tolerance],
+      [inner_length - tolerance, -tolerance],
+      [inner_length - tolerance, -overhang - tolerance],
+      [inner_length + tolerance*sqrt(2)/2, -overhang - tolerance],
+      [length + tolerance, -tolerance*sqrt(2)/2],
+      [length + tolerance, clearance + tolerance],
+      [-tolerance, clearance + tolerance],
+      [-tolerance, -(thickness + tolerance)/2],
+      [0, -(thickness + tolerance)/2],
     ]);
-    translate([0,-(thickness + tolerance)/2,0])
+    translate([0, -(thickness + tolerance)/2, 0])
       difference() {
         translate([0,0,0])
           square((thickness + tolerance)/2);
-        translate([(thickness + tolerance)/2,0,0])
+        translate([(thickness + tolerance)/2, 0, 0])
           circle((thickness - tolerance)/2, $fn=30);
       }
   }
