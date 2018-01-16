@@ -24,15 +24,13 @@ module torque_tester(lever_length, cube_size=cube_size, layer_count=3, wall_thic
   depth = cube_size / (layer_count * 1.33);
   width = cube_size + wall_thickness * 2;
   difference() {
-    cube([width, depth, width]);
-    translate([wall_thickness, -depth, wall_thickness])
-      cube([cube_size, 3*depth, cube_size]);
+    cube([width, depth, width], center=true);
+    cube([cube_size, 3*depth, cube_size], center=true);
   }
-  translate([width/2, 0, width/2])
-    for (i=[0:3])
-      rotate(i*90, y)
-      translate([width/2, 0, -wall_thickness/2])
-      wing(depth, lever_length - width/2, wall_thickness * 1.25);
+  for (i=[0:3])
+    rotate(i*90, y)
+    translate([width/2, -depth/2, -wall_thickness/2])
+    wing(depth, lever_length - width/2, wall_thickness * 1.25);
 }
 
 module wing(width, length, wall_thickness=2) {
