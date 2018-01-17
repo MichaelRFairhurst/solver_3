@@ -4,6 +4,7 @@
 
 // Constants to be used by all models
 cube_size = 55;
+layer_count = 3;
 cube_rounding = 1;
 servo_block_size=[26.5,15,30];
 servo_flange_length=13;
