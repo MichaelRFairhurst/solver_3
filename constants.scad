@@ -3,7 +3,8 @@
  */
 
 // Constants to be used by all models
-cube_size = 57; // Calipers measured 56.5, this includes 0.5mm tolerance.
+cube_size = 56.5;
+$tol = 0.4;
 layer_count = 3;
 cube_rounding = 1;
 servo_block_size=[26.5,15,30];
