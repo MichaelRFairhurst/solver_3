@@ -8,7 +8,7 @@ use <snap_joint.scad>;
 
 // Begin config specific to this piece.
 arm_length = 100;
-width = 8;
+width = 20;
 grip_width = 2;
 extend_retract_gear_size = 1;
 
