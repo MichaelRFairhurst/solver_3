@@ -22,10 +22,11 @@ torque_tester(_lever_length, $fn=30);
 // weight/lever_length to move the cube.
 module torque_tester(lever_length, cube_size=cube_size, layer_count=3, wall_thickness=2) {
   depth = cube_size / (layer_count * 1.33);
-  width = cube_size + wall_thickness * 2;
+  tolerant_cube_size = cube_size + $tol;
+  width = tolerant_cube_size + wall_thickness * 2;
   difference() {
     cube([width, depth, width], center=true);
-    cube([cube_size, 3*depth, cube_size], center=true);
+    cube([tolerant_cube_size, 3*depth, tolerant_cube_size], center=true);
   }
   for (i=[0:3])
     rotate(i*90, y)
