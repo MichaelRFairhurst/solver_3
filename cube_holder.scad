@@ -24,22 +24,27 @@ module cube_holder(hollow=true) {
   piece_size = cube_size / 3 + margin;
   holder_open_size = piece_size + thickness;
   holder_closed_size = piece_size + thickness + embedded_thickness;
-  translate([-piece_size/2,piece_size/2,piece_size/2]) {
-    difference() {
-      translate([thickness/2, (embedded_thickness-thickness)/2, (embedded_thickness-thickness)/2])
-        ccube([holder_open_size, holder_closed_size, holder_closed_size], x+y+z);
-      if (hollow) {
-        rounded_cube(piece_size, cube_rounding, x+y+z);
-        translate([-thickness, 0, 0]) rounded_cube(piece_size, cube_rounding, x+y+z);
-        onto_point()
-          translate([0, 0, holder_closed_size])
-          ccube(holder_open_size, x+y+z);
+  arbitrary_corner_cut = holder_open_size*5/4;
+  difference() {
+    translate([-piece_size - embedded_thickness, -thickness, -thickness])
+      cube([holder_closed_size, holder_closed_size, holder_open_size]);
+    if (hollow) {
+      translate([cube_rounding - piece_size, cube_rounding, cube_rounding]) {
+        // this cube is the negative of the cubie that will be inserted
+        rounded_cube(piece_size, cube_rounding);
+        // this cube makes sure that there is a clean hole for the cubie to enter
+        translate([0, 0, cube_rounding])
+          rounded_cube(piece_size, cube_rounding);
       }
+      rotate(45, x+y)
+        rotate(45, z)
+        translate([0,arbitrary_corner_cut,0])
+        ccube(holder_open_size*2, x+z);
     }
   }
-  pin_radius = thickness/2;
+  pin_radius = thickness;
   translate([thickness - pin_radius, 0, -thickness])
     rotate(90, x) // rotate the pin so it prints flat
     rotate(90, z) // turn the pin so that it lays on a face
-    pin(thickness*9/4, pin_radius);
+    pin(thickness*2.5, pin_radius);
 }
