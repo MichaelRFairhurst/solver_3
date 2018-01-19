@@ -90,22 +90,3 @@ module mirrored(vector_set, index = 0) {
     children();
   }
 }
-
-// A shape that can be used for push in parts
-module pin(height, radius) {
-  inner_height = height * 0.875;
-  cap_height = (height - inner_height) / 2;
-  difference() {
-    union() {
-      up(-inner_height/2)
-        cylinder(inner_height, radius, radius, $fn=8);
-      up(inner_height/2)
-        cylinder(cap_height, radius, radius/2, $fn=8);
-      up(-inner_height/2-cap_height)
-        cylinder(cap_height, radius/2, radius, $fn=8);
-    }
-    translate([radius*(1 + sqrt(2)/2),0,0])
-      ccube([radius*2,radius*2,height],x+y+z);
-  }
-}
-

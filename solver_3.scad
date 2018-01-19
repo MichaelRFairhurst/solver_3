@@ -5,6 +5,7 @@ include <constants.scad>;
 use <util.scad>;
 use <rubiks_cube.scad>;
 use <cube_holder.scad>;
+use <cube_holder_gear.scad>;
 use <frame.scad>;
 use <arm.scad>;
 use <servo.scad>;
@@ -22,12 +23,17 @@ above_cube_holder() {
 }
 
 above_frame() {
-  color("white", 0.8) cube_holder();
+  color("white", 0.8)
+    up(servo_gear_thickness)
+    onto_point()
+    cube_holder();
+
+  cube_holder_gear();
 
   color("grey", 0.8) cube_spinner_servo_placement() servo();
   color("black", 0.8) belt() {
     cube_spinner_servo_placement() servo_gear();
-    holder_gear();
+    cube_holder_gear();
   }
 }
 
