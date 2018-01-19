@@ -1,3 +1,7 @@
+/**
+ * Copyright 2018 Mike and Nathan Fairhurst. See LICENSE for licensing.
+ */
+
 include <constants.scad>
 use <util.scad>
 
