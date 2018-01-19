@@ -12,12 +12,12 @@ module cantilever(length, width, thickness, overhang) {
       [length, thickness],
       [0, thickness],
     ]);
-    for (i=[0:1])
-      translate([0, (i*2 - 0.5)*thickness, 0])
+    translate([0, thickness/2])
+      mirrored([y])
+      translate([0, -thickness])
       difference() {
-        translate([0, -i*thickness/2, 0])
-          square(thickness/2);
-        translate([thickness/2, 0, 0])
+        square(thickness/2);
+        translate([thickness/2, 0])
           circle(thickness/2, $fn=30);
       }
   }
