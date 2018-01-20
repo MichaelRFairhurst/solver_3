@@ -29,8 +29,8 @@ module arm(include_gears=true) {
     }
     up(-cube_size/3/2)
       mirrored([y])
-      translate([0, -cantilever_thickness*2, -i*cube_size/3])
-      cantilever(cantilever_height, cube_size/3, cantilever_thickness, cantilever_thickness);
+      translate([0, -cantilever_thickness*2, 0])
+      cantilever_negative(cantilever_height, cube_size/3, cantilever_thickness, cantilever_thickness);
   }
 }
 
