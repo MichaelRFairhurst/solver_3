@@ -7,6 +7,7 @@ cube_size = 56.5;
 $tol = 0.4;
 layer_count = 3;
 cube_rounding = 1;
+claw_wall_thickness = 2;
 servo_block_size=[26.5,15,30];
 servo_flange_length=13;
 servo_flange_thickness=1.5;
