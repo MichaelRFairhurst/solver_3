@@ -54,6 +54,12 @@ module frame() {
     }
     above_cube_holder() onto_point(cube_size) arm(include_gears=false, $fn=100);
   }
+
+  /*
+  onto_point(cube_size) translate([-cube_to_arm_len,0,0])rotate([45,0,0]) {
+    ccube(10, x+y+z);
+  }
+  */
 }
 
 module cube_spinner_servo_support() {
