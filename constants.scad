@@ -17,6 +17,14 @@ servo_gear_teeth_size = 1;
 servo_gear_num_teeth = 12;
 servo_gear_thickness = 6;
 
+arm_width = 20;
+arm_length = 100;
+
+// TODO this does not factor in $tol, and maybe it should.
+arm_movement = cube_size / 2 // it has to clear the half of the cube
+             // and the grabber, which is long enough to grab all but one layer.
+             + (layer_count - 1) * (cube_size/layer_count);
+
 // Dimensional values for use with [ccube], etc.
 x = [1, 0, 0];
 y = [0, 1, 0];

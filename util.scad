@@ -2,12 +2,28 @@
  * Copyright 2018 Mike and Nathan Fairhurst. See LICENSE for licensing.
  */
 
+// Constants specific to this file
+cube_point_rotation = [45, 35.264, 180];
+
+
+// Functions to be used by all parts
+
 function is_number(x) = abs(x)!=undef;
 function sqr(x) = x*x;
 function sqrt(x) = pow(x, 0.5);
 
-// Constants specific to this file
-cube_point_rotation = [45, 35.264, 180];
+// Generate a rotation matrix. You can multiply the result of this function
+// to a 3d vector to rotate it in 3d space as if you'd used [rotate].
+function rotation(rv)
+ = [[cos(rv[2]),-sin(rv[2]),0],[sin(rv[2]),cos(rv[2]),0],[0,0,1]]
+ * [[1,0,0],[0,cos(rv[0]),-sin(rv[0])],[0,sin(rv[0]),cos(rv[0])]]
+ * [[cos(rv[1]),0,sin(rv[1])],[0,1,0],[-sin(rv[1]),0,cos(rv[1])]];
+
+// Take a point, and put it [onto_point], and return it.
+function vec_onto_point(cube_size, vec)
+ = vec * rotation(cube_point_rotation)
+ + [0, 0, pow(pow(cube_size/2, 2)*3, 1/2)];
+
 
 // Modules to be used by all parts
 
