@@ -6,9 +6,8 @@ use <util.scad>;
 use <gear.scad>;
 
 // Begin config specific to this piece.
-arm_length = 100;
-width = 20;
-grip_width = 2;
+width = arm_width;
+cantilever_thickness = claw_wall_thickness;
 extend_retract_gear_size = 1;
 
 // Begin how to print this piece (orientation, etc)
