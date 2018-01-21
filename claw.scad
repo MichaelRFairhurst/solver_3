@@ -21,7 +21,13 @@ module claw() {
       ], x + y + z);
     ccube(cube_size, x + y + z);
   }
+  translate([thickness + cube_size/2, 0, 0])
+    claw_joint();
+}
+
+module claw_joint(positive=true) {
+  clearance = get_cantilever_clearance(thickness, thickness);
   mirrored([y])
-    translate([thickness + cube_size/2, -thickness*2, -cube_size/3/2])
-    cantilever(thickness*6, cube_size/3, thickness, thickness);
+    translate([0, -clearance - thickness/2, -cube_size/3/2])
+    cantilever(thickness*6, cube_size/3, thickness, thickness, positive=positive);
 }

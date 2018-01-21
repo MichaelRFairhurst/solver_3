@@ -4,6 +4,7 @@
 include <constants.scad>;
 use <util.scad>;
 use <gear.scad>;
+use <claw.scad>;
 use <snap_joint.scad>;
 
 // Begin config specific to this piece.
@@ -18,6 +19,7 @@ rotate(270, y) arm();
 // Begin modules that can be used to assemble this piece in solver_3.scad
 module arm(include_gears=true) {
   cantilever_height = cantilever_thickness*6;
+  cantilever_depth = get_cantilever_negative_depth(cantilever_thickness, cantilever_thickness);
   difference() {
     union() {
       rotate([0, 90, 0]) {
@@ -25,12 +27,13 @@ module arm(include_gears=true) {
           opposing_gears(arm_length, width, extend_retract_gear_size);
         else cylinder(d=width, arm_length);
       }
-      ccube([cantilever_thickness + cantilever_height, width, cantilever_thickness*2 + cube_size/3], y+z);
+      ccube([
+        cantilever_thickness + cantilever_height,
+        2*(cantilever_depth + cantilever_thickness/2),
+        cantilever_thickness*2 + cube_size/3 + $tol
+      ], y+z);
     }
-    up(-cube_size/3/2)
-      mirrored([y])
-      translate([0, -cantilever_thickness*2, 0])
-      cantilever_negative(cantilever_height, cube_size/3, cantilever_thickness, cantilever_thickness);
+    claw_joint(positive=false);
   }
 }
 
